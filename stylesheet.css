@@ -26,6 +26,19 @@ body{
     align-content: center;
 }
 
+.rowContainer .btn {
+    flex-grow: 1;
+    flex-shrink: 1;
+    flex-basis: 0%;
+    background-color: lightgray;
+    border:1px solid black;
+    border-radius: 10px;
+    margin:10px;
+    padding:15px;
+    text-align: center;
+    font-size: 2em;
+}
+
 #panel {
     width: 100%;
     background-color: lightgray;
