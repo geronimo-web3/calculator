@@ -39,6 +39,7 @@ function calculation(){
             firstNumber = deleteCharFromString(firstNumber);
         } else if (userInput == "+" || userInput == "-" || userInput == "*" || userInput == "/"){
             operator = userInput;
+            firstNumber = addLeadingZeroWithOperator(firstNumber);
             calcStatus = 1;
         }
     } else if (calcStatus === 1){
@@ -69,6 +70,7 @@ function calculation(){
   
 }
 
+// Calculate the result
 function calculateResult(operat){
     let opResult = 0;
 
@@ -134,6 +136,7 @@ function deleteCharFromString(number){
     return number;
 }
 
+// Add a decimal sign to number if it is an int
 function addDecimalSignToNumber(number){
     if (number == ""){
         number = "0.";
@@ -143,4 +146,13 @@ function addDecimalSignToNumber(number){
     // disable decimal event handler if selected once
     switchDecimalButtonHandler(number);
     return number;
+}
+
+// Add a leading 0 if an operator is first pressed
+function addLeadingZeroWithOperator(number){
+    if (number === ""){
+        return "0";
+    } else {
+        return number;
+    }
 }
