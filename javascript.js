@@ -38,13 +38,13 @@ function calculation(){
                 firstNumber += ".";
             }
             // disable decimal event handler if selected once
-            const btn = document.querySelector("#numberDecimal");
-            btn.removeEventListener("click", calculation);
+            switchDecimalButtonHandler(firstNumber);
             //if the user clicked delete the slice last character
         } else if (userInput == "delete"){
             if (firstNumber != ""){
                 let str = firstNumber;
                 firstNumber = str.slice(0, str.length - 1);
+                switchDecimalButtonHandler(firstNumber);
                 console.log(firstNumber); 
             }
         }
@@ -68,5 +68,15 @@ function clearCalculation(){
     secondNumber = "";
     operator = ""; 
     console.log("clear panel"); 
+
+}
+// Check if the number contains a decimal separator and switch handler on/off
+function switchDecimalButtonHandler(number){
+    const btn = document.querySelector("#numberDecimal");
+    if (number.includes(".")){
+        btn.removeEventListener("click", calculation);
+    } else {
+        btn.addEventListener("click", calculation);
+    }
 
 }
