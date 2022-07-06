@@ -3,6 +3,7 @@ let calcResult = 0;
 let firstNumber = "";
 let secondNumber = "";
 let operator = ""; 
+let userKeyPressed = "";
 
 addEventToBtn();
 
@@ -10,13 +11,21 @@ function addEventToBtn(){
     const btn = document.querySelectorAll(".btn");
     for (const element of btn) {
         element.addEventListener("click", calculation);
+        element.addEventListener("mouseover", changeBkgrColor);
+        element.addEventListener("mouseleave", resetBkgrColor);
       }
+    window.addEventListener("keydown", numberPressOnKeyboard);
 }
 
-
 function calculation(){
-    let userInput = this.value;
-    console.log(userInput); 
+    let userInput = "";
+    // Check if button pressed or keyboard pressed
+    if (userKeyPressed != ""){
+        userInput = userKeyPressed;
+    } else {
+        userInput = this.value;
+    }
+    userKeyPressed = "";
 
     const calcPanel = document.querySelector("#panelRow01");
     const resultPanel = document.querySelector("#panelRow02");
@@ -45,7 +54,7 @@ function calculation(){
     } else if (calcStatus === 1){
         if ((userInput == "+" || userInput == "-" || userInput == "*" || userInput == "/") && secondNumber === ""){
             operator = userInput;
-        } else if (isNaN(userInput) == false){
+        } else if (isNaN(userInput) == false && operator != ""){
             secondNumber += userInput;
         } else if (userInput == "decimal"){
             secondNumber = addDecimalSignToNumber(secondNumber);
@@ -57,7 +66,7 @@ function calculation(){
             firstNumber = calcResult;
             secondNumber = "";
             operator = userInput;
-        } else if (userInput == "equal" && secondNumber != ""){
+        } else if (userInput == "=" && secondNumber != ""){
             calcResult = calculateResult(operator);
             firstNumber = calcResult;
             secondNumber = "";
@@ -155,4 +164,19 @@ function addLeadingZeroWithOperator(number){
     } else {
         return number;
     }
+}
+
+// Change Background Color when Mouse Over Button
+function changeBkgrColor(){
+    this.style.backgroundColor = "#C0C0C0";
+}
+
+// Reset Background Color when Mouse Over Button
+function resetBkgrColor(){
+    this.style.backgroundColor = "lightgray";
+}
+
+function numberPressOnKeyboard(e){
+    userKeyPressed = e.key;
+    calculation();
 }
