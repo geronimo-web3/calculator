@@ -41,10 +41,10 @@ function calculation(){
         if (isNaN(userInput) == false){
             firstNumber += userInput;
         // if the decimal sign is clicked then show 0. in case no number proceeds otherwise attache id
-        } else if (userInput == "decimal"){
+        } else if (userInput == "."){
             firstNumber = addDecimalSignToNumber(firstNumber);
         //if the user clicked delete the slice last character
-        } else if (userInput == "delete"){
+        } else if (userInput == "Delete"){
             firstNumber = deleteCharFromString(firstNumber);
         } else if (userInput == "+" || userInput == "-" || userInput == "*" || userInput == "/"){
             operator = userInput;
@@ -56,10 +56,10 @@ function calculation(){
             operator = userInput;
         } else if (isNaN(userInput) == false && operator != ""){
             secondNumber += userInput;
-        } else if (userInput == "decimal"){
+        } else if (userInput == "."){
             secondNumber = addDecimalSignToNumber(secondNumber);
         //if the user clicked delete the slice last character
-        } else if (userInput == "delete"){
+        } else if (userInput == "Delete"){
             secondNumber = deleteCharFromString(secondNumber);
         } else if ((userInput == "+" || userInput == "-" || userInput == "*" || userInput == "/") && secondNumber != ""){
             calcResult = calculateResult(operator);
@@ -109,19 +109,19 @@ function calculateResult(operat){
 function clearCalculation(){
     const calcPanel = document.querySelector("#panelRow01");
     const resultPanel = document.querySelector("#panelRow02");
-
+    
     calcPanel.innerHTML = "";
     resultPanel.innerHTML = "0";
- 
+    
     addEventToBtn();
     calcStatus = 0;
     calcResult = 0;
     firstNumber = "";
     secondNumber = "";
     operator = ""; 
-    console.log("clear panel"); 
-
 }
+
+
 // Check if the number contains a decimal separator and switch handler on/off
 function switchDecimalButtonHandler(number){
     const btn = document.querySelector("#numberDecimal");
@@ -142,6 +142,7 @@ function deleteCharFromString(number){
         number = str.slice(0, str.length - 1);
         switchDecimalButtonHandler(number); 
     }
+
     return number;
 }
 
