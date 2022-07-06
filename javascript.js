@@ -4,6 +4,7 @@ let firstNumber = "";
 let secondNumber = "";
 let operator = ""; 
 let userKeyPressed = "";
+let decimalSeparator = 1;
 
 addEventToBtn();
 
@@ -49,6 +50,7 @@ function calculation(){
         } else if (userInput == "+" || userInput == "-" || userInput == "*" || userInput == "/"){
             operator = userInput;
             firstNumber = addLeadingZeroWithOperator(firstNumber);
+            switchDecimalButtonHandler("0");
             calcStatus = 1;
         }
     } else if (calcStatus === 1){
@@ -56,7 +58,7 @@ function calculation(){
             operator = userInput;
         } else if (isNaN(userInput) == false && operator != ""){
             secondNumber += userInput;
-        } else if (userInput == "."){
+        } else if (userInput == "." && operator != ""){
             secondNumber = addDecimalSignToNumber(secondNumber);
         //if the user clicked delete the slice last character
         } else if (userInput == "Delete"){
@@ -66,11 +68,13 @@ function calculation(){
             firstNumber = calcResult;
             secondNumber = "";
             operator = userInput;
+            switchDecimalButtonHandler("0");
         } else if (userInput == "=" && secondNumber != ""){
             calcResult = calculateResult(operator);
             firstNumber = calcResult;
             secondNumber = "";
             operator = "";
+            switchDecimalButtonHandler("0");
         } 
     }
 
@@ -119,6 +123,8 @@ function clearCalculation(){
     firstNumber = "";
     secondNumber = "";
     operator = ""; 
+    userKeyPressed = "";
+    decimalSeparator = 1;
 }
 
 
@@ -127,8 +133,10 @@ function switchDecimalButtonHandler(number){
     const btn = document.querySelector("#numberDecimal");
     if (number.includes(".")){
         btn.removeEventListener("click", calculation);
+        decimalSeparator = 0;
     } else {
         btn.addEventListener("click", calculation);
+        decimalSeparator = 1;
     }
 }
 
@@ -179,5 +187,11 @@ function resetBkgrColor(){
 
 function numberPressOnKeyboard(e){
     userKeyPressed = e.key;
-    calculation();
+    if (e.key == "." && decimalSeparator === 0){
+
+    } else {
+        calculation();
+    }
 }
+
+ 
